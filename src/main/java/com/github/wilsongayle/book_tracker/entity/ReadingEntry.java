@@ -24,6 +24,8 @@ public class ReadingEntry {
     @Column(name = "finish_date")
     private LocalDate finishDate;
 
+    private Integer rating;
+
     private String notes;
 
     public Book getBook() {
@@ -67,6 +69,14 @@ public class ReadingEntry {
 
     public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public String getNotes() {

@@ -1,0 +1,9 @@
+package com.github.wilsongayle.book_tracker.repository;
+
+import com.github.wilsongayle.book_tracker.entity.Note;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface NoteRepository extends JpaRepository<Note, UUID> {
+}
