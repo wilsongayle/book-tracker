@@ -5,6 +5,8 @@ import com.github.wilsongayle.book_tracker.repository.ListEntryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ListEntryService {
@@ -20,5 +22,17 @@ public class ListEntryService {
 
     public ListEntry createListEntry(ListEntry entry) {
         return listEntryRepository.save(entry);
+    }
+
+    public Optional<ListEntry> getListEntryById(UUID id) {
+        return listEntryRepository.findById(id);
+    }
+
+    public boolean deleteListEntryById(UUID id) {
+        if (!listEntryRepository.existsById(id)) {
+            return false;
+        }
+        listEntryRepository.deleteById(id);
+        return true;
     }
 }

@@ -5,6 +5,8 @@ import com.github.wilsongayle.book_tracker.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TagService {
@@ -21,5 +23,17 @@ public class TagService {
 
     public Tag createTag(Tag tag) {
         return tagRepository.save(tag);
+    }
+
+    public Optional<Tag> getTagById(UUID id) {
+        return tagRepository.findById(id);
+    }
+
+    public boolean deleteTagById(UUID id) {
+        if (!tagRepository.existsById(id)) {
+            return false;
+        }
+        tagRepository.deleteById(id);
+        return true;
     }
 }

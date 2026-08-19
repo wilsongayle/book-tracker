@@ -7,6 +7,10 @@ import com.github.wilsongayle.book_tracker.repository.BookRepository;
 import com.github.wilsongayle.book_tracker.repository.ReadingEntryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class ReadingEntryService {
     private final ReadingEntryRepository readingEntryRepository;
@@ -17,7 +21,11 @@ public class ReadingEntryService {
         this.bookRepository = bookRepository;
     }
 
-    public ReadingEntry saveReadingEntry(ReadingEntry entry) {
+    public List<ReadingEntry> getAllReadingEntries() {
+        return readingEntryRepository.findAll();
+    }
+
+    public ReadingEntry createReadingEntry(ReadingEntry entry) {
         ReadingEntry savedEntry = readingEntryRepository.save(entry);
         Integer entryRating = savedEntry.getRating();
 
@@ -29,5 +37,17 @@ public class ReadingEntryService {
         }
 
         return savedEntry;
+    }
+
+    public Optional<ReadingEntry> getReadingEntryById(UUID id) {
+        return readingEntryRepository.findById(id);
+    }
+
+    public boolean deleteReadingEntryById(UUID id) {
+        if (!readingEntryRepository.existsById(id)) {
+            return false;
+        }
+        readingEntryRepository.deleteById(id);
+        return true;
     }
 }

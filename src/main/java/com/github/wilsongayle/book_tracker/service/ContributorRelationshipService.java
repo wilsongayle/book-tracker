@@ -5,6 +5,8 @@ import com.github.wilsongayle.book_tracker.repository.ContributorRelationshipRep
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ContributorRelationshipService {
@@ -20,5 +22,17 @@ public class ContributorRelationshipService {
 
     public ContributorRelationship createContributorRelationship(ContributorRelationship relationship) {
         return contributorRelationshipRepository.save(relationship);
+    }
+
+    public Optional<ContributorRelationship> getContributorRelationshipById(UUID id) {
+        return contributorRelationshipRepository.findById(id);
+    }
+
+    public boolean deleteContributorRelationshipById(UUID id) {
+        if (!contributorRelationshipRepository.existsById(id)) {
+            return false;
+        }
+        contributorRelationshipRepository.deleteById(id);
+        return true;
     }
 }

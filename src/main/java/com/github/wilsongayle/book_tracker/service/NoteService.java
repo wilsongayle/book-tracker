@@ -5,6 +5,8 @@ import com.github.wilsongayle.book_tracker.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class NoteService {
@@ -20,6 +22,18 @@ public class NoteService {
 
     public Note createNote(Note note) {
         return noteRepository.save(note);
+    }
+
+    public Optional<Note> getNoteById(UUID id) {
+        return noteRepository.findById(id);
+    }
+
+    public boolean deleteNoteById(UUID id) {
+        if (!noteRepository.existsById(id)) {
+            return false;
+        }
+        noteRepository.deleteById(id);
+        return true;
     }
 
 }

@@ -5,6 +5,8 @@ import com.github.wilsongayle.book_tracker.repository.ContributorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ContributorService {
@@ -20,5 +22,17 @@ public class ContributorService {
 
     public Contributor createContributor(Contributor contributor) {
         return contributorRepository.save(contributor);
+    }
+
+    public Optional<Contributor> getContributorById(UUID id) {
+        return contributorRepository.findById(id);
+    }
+
+    public boolean deleteContributorById(UUID id) {
+        if (!contributorRepository.existsById(id)) {
+            return false;
+        }
+        contributorRepository.deleteById(id);
+        return true;
     }
 }
