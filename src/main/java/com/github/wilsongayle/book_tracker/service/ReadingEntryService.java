@@ -3,8 +3,10 @@ package com.github.wilsongayle.book_tracker.service;
 import com.github.wilsongayle.book_tracker.entity.Book;
 import com.github.wilsongayle.book_tracker.entity.ReadingEntry;
 import com.github.wilsongayle.book_tracker.entity.ReadingStatus;
+import com.github.wilsongayle.book_tracker.exception.InvalidRequestException;
 import com.github.wilsongayle.book_tracker.repository.BookRepository;
 import com.github.wilsongayle.book_tracker.repository.ReadingEntryRepository;
+import com.github.wilsongayle.book_tracker.util.RepositoryLookup;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,14 +28,18 @@ public class ReadingEntryService {
     }
 
     public ReadingEntry createReadingEntry(ReadingEntry entry) {
-        ReadingEntry savedEntry = readingEntryRepository.save(entry);
-        Integer entryRating = savedEntry.getRating();
+        Book book = entry.getBook();
+        if (book == null) {
+            throw new InvalidRequestException("A book is required to create a reading entry");
+        }
+        Book fullBook = RepositoryLookup.resolveOrThrow(bookRepository, book.getId());
+        entry.setBook(fullBook);
 
-        if(entry.getReadingStatus() == ReadingStatus.COMPLETED && entryRating != null) {
-            Book book = bookRepository.findById(savedEntry.getBook().getId())
-                    .orElseThrow(() -> new RuntimeException("Book not found"));
-            book.setRating(entryRating);
-            bookRepository.save(book);
+        ReadingEntry savedEntry = readingEntryRepository.save(entry);
+
+        if (entry.getReadingStatus() == ReadingStatus.COMPLETED && entry.getRating() != null) {
+            fullBook.setRating(entry.getRating());
+            bookRepository.save(fullBook);
         }
 
         return savedEntry;
