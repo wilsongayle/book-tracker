@@ -34,6 +34,11 @@ public class ReadingEntryController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PatchMapping("/{id}")
+    public ReadingEntry updateReadingEntry(@PathVariable UUID id, @RequestBody ReadingEntry partialUpdate) {
+        return readingEntryService.updateReadingEntry(id, partialUpdate);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReadingEntryById(@PathVariable UUID id) {
         boolean deleted = readingEntryService.deleteReadingEntryById(id);

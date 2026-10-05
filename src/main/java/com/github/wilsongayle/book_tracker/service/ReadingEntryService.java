@@ -27,6 +27,14 @@ public class ReadingEntryService {
         return readingEntryRepository.findAll();
     }
 
+    private void syncBookRating(ReadingEntry entry) {
+        if (entry.getReadingStatus() == ReadingStatus.COMPLETED && entry.getRating() != null) {
+            Book entryBook = entry.getBook();
+            entryBook.setRating(entry.getRating());
+            bookRepository.save(entryBook);
+        }
+    }
+
     public ReadingEntry createReadingEntry(ReadingEntry entry) {
         Book book = entry.getBook();
         if (book == null) {
@@ -37,10 +45,36 @@ public class ReadingEntryService {
 
         ReadingEntry savedEntry = readingEntryRepository.save(entry);
 
-        if (entry.getReadingStatus() == ReadingStatus.COMPLETED && entry.getRating() != null) {
-            fullBook.setRating(entry.getRating());
-            bookRepository.save(fullBook);
+        syncBookRating(entry);
+
+        return savedEntry;
+    }
+
+    public ReadingEntry updateReadingEntry(UUID id, ReadingEntry partialUpdate) {
+        ReadingEntry existing = RepositoryLookup.resolveOrThrow(readingEntryRepository, id);
+
+        if (partialUpdate.getReadingStatus() != null) {
+            existing.setReadingStatus(partialUpdate.getReadingStatus());
         }
+
+        if (partialUpdate.getStartDate() != null) {
+            existing.setStartDate(partialUpdate.getStartDate());
+        }
+
+        if (partialUpdate.getFinishDate() != null) {
+            existing.setFinishDate(partialUpdate.getFinishDate());
+        }
+
+        if (partialUpdate.getRating() != null) {
+            existing.setRating(partialUpdate.getRating());
+        }
+
+        if (partialUpdate.getNotes() != null) {
+            existing.setNotes(partialUpdate.getNotes());
+        }
+
+        ReadingEntry savedEntry = readingEntryRepository.save(existing);
+        syncBookRating(existing);
 
         return savedEntry;
     }
