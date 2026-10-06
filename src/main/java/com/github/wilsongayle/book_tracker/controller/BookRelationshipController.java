@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.BookRelationship;
 import com.github.wilsongayle.book_tracker.service.BookRelationshipService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class BookRelationshipController {
     }
 
     @PostMapping
-    public BookRelationship createBookRelationship(@RequestBody BookRelationship relationship) {
+    public BookRelationship createBookRelationship(@RequestBody @Valid BookRelationship relationship) {
         return bookRelationshipService.createBookRelationship(relationship);
     }
 

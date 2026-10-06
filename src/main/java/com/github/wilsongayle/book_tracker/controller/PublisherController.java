@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Publisher;
 import com.github.wilsongayle.book_tracker.service.PublisherService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class PublisherController {
     }
 
     @PostMapping
-    public Publisher createPublisher(@RequestBody Publisher publisher) {
+    public Publisher createPublisher(@RequestBody @Valid Publisher publisher) {
         return publisherService.createPublisher(publisher);
     }
 

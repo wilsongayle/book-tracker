@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Note;
 import com.github.wilsongayle.book_tracker.service.NoteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class NoteController {
     }
 
     @PostMapping
-    public Note createNote(@RequestBody Note note) {
+    public Note createNote(@RequestBody @Valid Note note) {
         return noteService.createNote(note);
     }
 

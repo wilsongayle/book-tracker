@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.ContributorRelationship;
 import com.github.wilsongayle.book_tracker.service.ContributorRelationshipService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ContributorRelationshipController {
     }
 
     @PostMapping
-    public ContributorRelationship createContributorRelationship(@RequestBody ContributorRelationship relationship) {
+    public ContributorRelationship createContributorRelationship(@RequestBody @Valid ContributorRelationship relationship) {
         return contributorRelationshipService.createContributorRelationship(relationship);
     }
 

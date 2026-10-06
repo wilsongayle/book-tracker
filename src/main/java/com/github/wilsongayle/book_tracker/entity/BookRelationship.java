@@ -1,6 +1,7 @@
 package com.github.wilsongayle.book_tracker.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public class BookRelationship {
     @JoinColumn(name = "book_b_id")
     private Book bookB;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private BookRelationshipType bookRelationshipType;
 

@@ -1,6 +1,7 @@
 package com.github.wilsongayle.book_tracker.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class ListEntry {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name="list_type")
     private ListType listType;

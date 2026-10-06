@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Tag;
 import com.github.wilsongayle.book_tracker.service.TagService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class TagController {
     }
 
     @PostMapping
-    public Tag createTag(@RequestBody Tag tag) {
+    public Tag createTag(@RequestBody @Valid Tag tag) {
         return tagService.createTag(tag);
     }
 

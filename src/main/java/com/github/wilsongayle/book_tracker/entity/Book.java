@@ -1,6 +1,9 @@
 package com.github.wilsongayle.book_tracker.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank
     private String title;
 
     private String isbn;
@@ -22,6 +26,7 @@ public class Book {
 
     private String coverImagePath;
 
+    @Min(0) @Max(5)
     private Integer rating;
 
     private boolean wouldRecommend;

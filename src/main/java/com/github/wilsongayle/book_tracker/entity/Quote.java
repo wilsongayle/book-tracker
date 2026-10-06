@@ -1,6 +1,7 @@
 package com.github.wilsongayle.book_tracker.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class Quote {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @NotBlank
     private String content;
 
     private String pageRef;

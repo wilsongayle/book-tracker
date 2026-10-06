@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.ReadingEntry;
 import com.github.wilsongayle.book_tracker.service.ReadingEntryService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ReadingEntryController {
     }
 
     @PostMapping
-    public ReadingEntry createReadingEntry(@RequestBody ReadingEntry entry) {
+    public ReadingEntry createReadingEntry(@RequestBody @Valid ReadingEntry entry) {
         return readingEntryService.createReadingEntry(entry);
     }
 

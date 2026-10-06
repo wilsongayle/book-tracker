@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.ListEntry;
 import com.github.wilsongayle.book_tracker.service.ListEntryService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ListEntryController {
     }
 
     @PostMapping
-    public ListEntry createListEntry(@RequestBody ListEntry listEntry) {
+    public ListEntry createListEntry(@RequestBody @Valid ListEntry listEntry) {
         return listEntryService.createListEntry(listEntry);
     }
 

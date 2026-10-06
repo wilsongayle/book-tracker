@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Quote;
 import com.github.wilsongayle.book_tracker.service.QuoteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class QuoteController {
     }
 
     @PostMapping
-    public Quote createQuote(@RequestBody Quote quote) {
+    public Quote createQuote(@RequestBody @Valid Quote quote) {
         return quoteService.createQuote(quote);
     }
 

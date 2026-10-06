@@ -1,6 +1,9 @@
 package com.github.wilsongayle.book_tracker.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -15,6 +18,7 @@ public class ReadingEntry {
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private ReadingStatus readingStatus;
 
@@ -24,6 +28,7 @@ public class ReadingEntry {
     @Column(name = "finish_date")
     private LocalDate finishDate;
 
+    @Min(0) @Max(5)
     private Integer rating;
 
     private String notes;

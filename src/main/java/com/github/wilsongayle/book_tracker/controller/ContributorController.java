@@ -2,6 +2,7 @@ package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Contributor;
 import com.github.wilsongayle.book_tracker.service.ContributorService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ContributorController {
     }
 
     @PostMapping
-    public Contributor createContributor(@RequestBody Contributor contributor) {
+    public Contributor createContributor(@RequestBody @Valid Contributor contributor) {
         return contributorService.createContributor(contributor);
     }
 
