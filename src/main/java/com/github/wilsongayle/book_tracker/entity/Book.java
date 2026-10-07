@@ -29,7 +29,7 @@ public class Book {
     @Min(0) @Max(5)
     private Integer rating;
 
-    private boolean wouldRecommend;
+    private Boolean wouldRecommend;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
@@ -102,11 +102,11 @@ public class Book {
         this.rating = rating;
     }
 
-    public boolean isWouldRecommend() {
+    public Boolean getWouldRecommend() {
         return wouldRecommend;
     }
 
-    public void setWouldRecommend(boolean wouldRecommend) {
+    public void setWouldRecommend(Boolean wouldRecommend) {
         this.wouldRecommend = wouldRecommend;
     }
 

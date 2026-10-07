@@ -1,6 +1,7 @@
 package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Book;
+import com.github.wilsongayle.book_tracker.entity.Tag;
 import com.github.wilsongayle.book_tracker.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -41,4 +42,19 @@ public class BookController {
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/{bookId}/tags/{tagId}")
+    public Book attachTagById(@PathVariable UUID bookId, @PathVariable UUID tagId) {
+        return bookService.attachTag(bookId, tagId);
+
+    }
+
+    @DeleteMapping("/{bookId}/tags/{tagId}")
+    public Book detachTagById(@PathVariable UUID bookId, @PathVariable UUID tagId) {
+        return bookService.detachTag(bookId, tagId);
+    }
+
+    @PostMapping("/{bookId}/tags")
+    public Book addTagToBook(@PathVariable UUID bookId, @RequestBody @Valid Tag tag) {
+        return bookService.addTagToBook(bookId, tag.getName());
+    }
 }

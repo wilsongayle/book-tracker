@@ -10,4 +10,5 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     List<Book> findByTitle(String title);
     List<Book> findByPublisherId(UUID publisherId);
     List<Book> findByWouldRecommendTrue();
+    boolean existsByTagsId(UUID tagId);
 }
