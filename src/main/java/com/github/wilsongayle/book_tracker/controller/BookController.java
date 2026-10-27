@@ -1,6 +1,7 @@
 package com.github.wilsongayle.book_tracker.controller;
 
 import com.github.wilsongayle.book_tracker.entity.Book;
+import com.github.wilsongayle.book_tracker.entity.ReadingEntry;
 import com.github.wilsongayle.book_tracker.entity.Tag;
 import com.github.wilsongayle.book_tracker.service.BookService;
 import jakarta.validation.Valid;
@@ -51,6 +52,11 @@ public class BookController {
     @DeleteMapping("/{bookId}/tags/{tagId}")
     public Book detachTagById(@PathVariable UUID bookId, @PathVariable UUID tagId) {
         return bookService.detachTag(bookId, tagId);
+    }
+
+    @PatchMapping("/{id}")
+    public Book updateBook(@PathVariable UUID id, @RequestBody Book partialUpdate) {
+        return bookService.updateBook(id, partialUpdate);
     }
 
     @PostMapping("/{bookId}/tags")
