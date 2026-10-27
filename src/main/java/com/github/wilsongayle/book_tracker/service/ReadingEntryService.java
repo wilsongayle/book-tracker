@@ -7,14 +7,12 @@ import com.github.wilsongayle.book_tracker.exception.InvalidRequestException;
 import com.github.wilsongayle.book_tracker.repository.BookRepository;
 import com.github.wilsongayle.book_tracker.repository.ReadingEntryRepository;
 import com.github.wilsongayle.book_tracker.util.RepositoryLookup;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
+import com.github.wilsongayle.book_tracker.util.ValidateConstraints;
+import jakarta.validation.Validator;
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.Validator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -79,10 +77,8 @@ public class ReadingEntryService {
             existing.setNotes(partialUpdate.getNotes());
         }
 
-        Set<ConstraintViolation<ReadingEntry>> violations = validator.validate(existing);
-        if(!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
+        ValidateConstraints.validateOrThrow(validator, existing);
+
         ReadingEntry savedEntry = readingEntryRepository.save(existing);
         syncBookRating(existing);
 

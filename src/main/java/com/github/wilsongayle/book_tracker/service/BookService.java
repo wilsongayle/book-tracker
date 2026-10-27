@@ -9,15 +9,13 @@ import com.github.wilsongayle.book_tracker.repository.BookRepository;
 import com.github.wilsongayle.book_tracker.repository.PublisherRepository;
 import com.github.wilsongayle.book_tracker.repository.TagRepository;
 import com.github.wilsongayle.book_tracker.util.RepositoryLookup;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
+import com.github.wilsongayle.book_tracker.util.ValidateConstraints;
+import jakarta.validation.Validator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import jakarta.validation.Validator;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -146,10 +144,7 @@ public class BookService {
             existing.setPublisher(publisher);
         }
 
-        Set<ConstraintViolation<Book>> violations = validator.validate(existing);
-        if(!violations.isEmpty()) {
-            throw new ConstraintViolationException(violations);
-        }
+        ValidateConstraints.validateOrThrow(validator, existing);
 
         return bookRepository.save(existing);
     }
